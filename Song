@@ -1,0 +1,178 @@
+package GenderMag2;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class Song<T>  {
+	//Data Fields/Properties
+	private T songID;
+	private T title;
+	private T artist;
+	private T album;
+	private T year;
+
+	//Overloaded Constructor
+	public Song(T songID, T title, T artist, T album, T year) {
+		this.songID = songID;
+		this.title = title;
+		this.artist = artist;
+		this.album = album;
+		this.year = year;
+	}
+
+	//Functions/Getters&Setters
+	public T getSongID() {
+		return songID;
+	}
+
+	public void setSongID(T songID) {
+		this.songID = songID;
+	}
+
+	public T getTitle() {
+		return title;
+	}
+
+	public void setTitle(T title) {
+		this.title = title;
+	}
+
+	public T getArtist() {
+		return artist;
+	}
+
+	public void setArtist(T artist) {
+		this.artist = artist;
+	}
+
+	public T getAlbum() {
+		return album;
+	}
+
+
+	public void setAlbum(T album) {
+		this.album = album;
+	}
+
+	public T getYear() {
+		return year;
+	}
+
+	public void setyear(T year) {
+		this.year = year;
+	}
+
+	//toString method, what will print out
+	@Override
+	public String toString() {
+		return String.format("%s,%s,%s,%s,%s", songID, title, artist, album, year);
+
+	} 
+	//Display Method which displays first 3 data types of song list
+	public static void displayAllSongs(LinkedList<Song> songList) {
+		for (Song song : songList) {
+			System.out.println(song.getTitle() + " " + song.getArtist() + " " + song.getAlbum());
+		}
+	}
+	//LinkedList ReadSong() Method
+	public static LinkedList<Song> readSongsLinkedList(String filePath){
+		LinkedList<Song> songList = new LinkedList<>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+
+				String[] songData = line.split(",");
+				String id = songData[0].trim();
+				String title = songData[1].trim();
+				String artist = songData[2].trim();
+				String album = songData[3].trim();
+				String year = songData[4].trim();
+				songList.add(new Song(id, title, artist,album, year));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return songList;
+	}
+	//Array ReadSong() Method
+	public static Song[] readSongsArray(String filePath) {
+		LinkedList<Song> songList = new LinkedList<>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+
+				String[] songData = line.split(",");
+				String id = songData[0].trim();
+				String title = songData[1].trim();
+				String artist = songData[2].trim();
+				String album = songData[3].trim();
+				String year = songData[4].trim();
+				songList.add(new Song(id, title, artist,album, year));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return songList.toArray(new Song[0]);
+	}
+
+	//SearchSong() by name Method
+	public static void searchSongs(String songName, Song[] songsArray) {
+	
+        ArrayList<Song> SearchTitles = new ArrayList<Song>();
+        for (Song song : songsArray) {
+        	String title1 = (String) song.title; 
+			System.out.println(title1);   
+            }
+        }
+	
+	//SearchSong() by year/name Method
+	public static void searchSongs(int year, String songName, Song[] songsArray) {
+		// Search with year
+		ArrayList<Integer> searchYears = new ArrayList<Integer>();
+		for(Song song1: songsArray) {
+			String year1 = (String) song1.year; 
+			System.out.println(year1);
+		}
+		//Blank Space
+		System.out.print("\n");
+
+		for(Song song: songsArray) {
+			String title = (String) song.title;
+			System.out.println(title);
+		}
+	}
+	
+	//Second toString() method for Comparators Output
+	public String toString1() {
+		return title + " by \"" + artist + "\" (" + year + ")";
+
+
+	}  
+}
+
+// Comparator for comparing songs by name
+class NameComparator implements Comparator<Song> {
+	@Override
+	public int compare(Song s1, Song s2) {
+		return ((String) s1.getTitle()).compareTo((String) s2.getTitle());
+	}
+}
+
+// Comparator for comparing songs by year (first) and then by name (second)
+class YearNameComparator implements Comparator<Song> {
+	@Override
+	public int compare(Song s1, Song s2) {
+		return ((String) s1.getYear()).compareTo((String) s2.getYear());
+	}
+}
+
+
+
+

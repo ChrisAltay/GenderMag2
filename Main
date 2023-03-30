@@ -1,0 +1,165 @@
+package GenderMag2;
+import java.util.LinkedList;
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		// create 3 Song instances with different data types
+		Song song1 = new Song("7762291 ", "JailhouseRock ", "Elvis Presley ", "Elvis'Golden Records ","1957");
+		Song song2 = new Song("4755879 ","HotelCalifornia ", "Eagles ", "HotelCalifornia(2013Remastered) ", "1976");
+		Song song3 = new Song("7827638 ","BillieJean ","Michael Jackson ","Thriller 25 Super Deluxe Edition ","1982");
+
+		System.out.println("[Testing toString() method and DisplayAllSongs() method]\n");
+		// print Top 3 Songs on list with  ID
+		System.out.println("Top 3 Songs on List With ID: \n---------------------------- \nID, Title, Artist, Album, Year");
+		System.out.println(song1.toString());
+		System.out.println(song2.toString());
+		System.out.println(song3.toString());
+
+
+		// create a LinkedList of top 3 songs
+		LinkedList<Song> songList = new LinkedList<>();
+		songList.add(song1);
+		songList.add(song2);
+		songList.add(song3);
+
+		// LINES 30-32 are not needed, just there to test the display method. 
+		// testing the DisplayMethod to show top 3 songs on list without ID
+		System.out.println("\nTop 3 Songs Without ID: \n----------------------- \nTitle, Artist, Album");
+		Song.displayAllSongs(songList);
+		System.out.println("\n");
+
+		//File Path for both ReadSongs METHODS
+		String filePath = "C:\\Users\\chris\\eclipse-workspace\\DataStructures\\src\\GenderMag2\\Output.txt";
+		System.out.println("[Testing ReadSongLinkedList() method and ReadSongArray() method] \n");
+		//LinkedList title to Organize Output
+		System.out.println("[LinkedList] \n------------");
+
+		//LinkedList Read() Method for Song text file
+		LinkedList<Song> songList1 = Song.readSongsLinkedList(filePath);
+		//Display method which prints all songs listed in text file 
+		Song.displayAllSongs(songList1);
+
+		//Blank Space 
+		System.out.println("\n");	
+		System.out.println("[Array] \n-------"); //Makes Output Neat
+
+		//Array Read() Method for Song text file
+		Song[] sq = Song.readSongsArray(filePath);
+		for(int i = 0; i < sq.length; i++) {
+			System.out.println(sq[i].getAlbum());
+		}
+
+		//Object of all Songs with their special ID added from the text file list. 
+		List<Song> songs = new ArrayList<>();
+		songs.add(new Song("","JailhouseRock", "ElvisPresley", "Elvis'GoldenRecords", "1957"));
+		songs.add(new Song("","HotelCalifornia", "Eagles", "HotelCalifornia(2013Remastered)", "1976"));
+		songs.add(new Song("","BillieJean", "MichaelJackson", "Thriller25SuperDeluxeEdition", "1982"));
+		songs.add(new Song("","BohemianRhapsody", "Queen", "ANightAtTheOpera(2011Remastered)", "1975"));
+		songs.add(new Song("","LetItBe", "TheBeatles", "LetItBe(Remastered)", "1970"));
+		songs.add(new Song("","I Can't Get No Satisfaction", "TheRollingStones", "OutOfOurHeads", "1965"));
+		songs.add(new Song("","Africa", "TOTO", "TotoIV", "1982"));
+		songs.add(new Song("","MoreThanAFeeling", "Boston", "Boston", "1976"));
+		songs.add(new Song("","Stayin'Alive", "BeeGees", "Greatest", "1977"));
+		songs.add(new Song("","SmellsLikeTeenSpirit", "Nirvana", "NeverMind(DeluxeEdition)", "1991"));
+		songs.add(new Song("","EveryBreathYouTake", "ThePolice", "Synchronicity(Remastered2003)", "1983"));
+		songs.add(new Song("","StandByMe", "BenE,king", "DontPlayThatSong(Mono)", "1986"));
+		songs.add(new Song("","NothingCompares2U", "SineadO'Connor", "IDoNotWantWhatIHaven'tGotten", "1990"));
+		songs.add(new Song("","Don'tStopBelievin'", "Journey", "Escape(BonusTrackVersion)", "1981"));
+		songs.add(new Song("","BeforeYourBirth", "TheVices", "LookingForFaces", "2021"));
+		songs.add(new Song("","Imagine", "JohnLennon", "Imagine", "1971"));
+		songs.add(new Song("","IWasMadeForLovin'You", "KISS", "Dynasty", "1979"));
+		songs.add(new Song("","BeatIt", "MichaelJackson", "Thriller25SuperDeluxeVersion", "1982"));
+		songs.add(new Song("","DejaVu", "PanArcadia", "DejaVu", "2021"));
+		songs.add(new Song("","WholelottaLove", "LedZeppelin", "LedZeppelinII(1994Remastered)", "1969"));
+		songs.add(new Song("","TakeonMe", "a-ha", "HuntingHighandLow", "1985"));
+		songs.add(new Song("","UndertheBridge", "RedHotChiliPeppers", "BloodSugarSexMagika(DeluxeEdition)", "1991"));
+		songs.add(new Song("","Gangsta'sParadise", "Coolio", "Gangsta'sParadise", "1995"));
+		songs.add(new Song("","SweetChildO'Mine", "GunsN'Roses", "AppetiteForDestruction", "1987"));
+		songs.add(new Song("","IwillAlwaysLoveYou", "WhitneyHouston", "TheBodyguard-OrigionalSoundtrack", "1974"));
+
+
+		// sort songs by title using NameComparator
+		Collections.sort(songs, new NameComparator());
+		System.out.println("\n[Testing Comparator() methods] \n");
+		System.out.println("Songs sorted alphabetically by title: \n-------------------------------------");
+		for (Song song : songs) {
+			System.out.println(song.toString1());
+		}
+
+		// sort songs by year and title using YearNameComparator
+		Collections.sort(songs, new YearNameComparator());
+		System.out.println("\nSongs sorted in accending order by year/title: \n----------------------------------------------");
+		for (Song song : songs) {
+			//			System.out.println(song); This prints out the songs by year but with album as well.
+			System.out.println(song.toString1());
+		}
+
+
+		//SearchSong METHODS
+		//Blank Space 
+		System.out.println("\n");
+		// Open the file containing the song data
+		File file = new File("C:\\Users\\chris\\eclipse-workspace\\DataStructures\\src\\GenderMag2\\Songs.txt");
+
+		try {
+			// Create a Scanner to read from the file
+			Scanner scanner = new Scanner(file);
+
+			// Prompt the user to enter a song name
+			System.out.print("Enter a song name to search: ");
+			Scanner userInput = new Scanner(System.in);
+			String SongName = userInput.nextLine();
+
+			// Search for matching songs and print their information
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				String[] parts = line.split(",");
+				String title = parts[0];
+				String artist = parts[1];
+				String albumName = parts[2];
+				String year = parts[3];
+
+				if (title.equalsIgnoreCase(SongName)) {
+					System.out.println("Title: " + title);
+					System.out.println("Artist: " + artist);
+					System.out.println("Album: " + albumName);
+					System.out.println("Year: " + year);
+					System.out.println();
+				}
+			}
+
+			// Close the scanners
+			scanner.close();
+			userInput.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found: " + file.getName());
+		}
+
+
+		System.out.println("\n");
+		//What will display, Making output Neat
+		System.out.println("[Testing SearchSong() method by name] ");
+		System.out.println("Song was found in SongList \n");
+		//Prints out SearchSong() Method for Name only
+		Song.searchSongs("LetItBe", sq);
+		//Blank Space 
+		System.out.println("\n");
+
+
+		System.out.println("[Testing Second SearchSong() method by year/name] \n");
+		//Prints out SearchSong() Method year and name
+		Song.searchSongs(1957, "Dynasty", sq);
+		//Blank Space 
+		System.out.println("\n");
+	}	
+}
+
+
+
